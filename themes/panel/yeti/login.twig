@@ -1,0 +1,369 @@
+{% include 'header.twig' %}
+
+    <div class="home-head">
+        <div class="home-head-bg"></div>
+              <div class="shapeBox">  
+				<img class="shape shape1" src="../img/shape1.png" />		       
+				<img class="shape shape2" src="../img/shape2.png" />		       
+				<img class="shape shape3" src="../img/shape3.png" />		       
+              </div>	
+        <div class="home-head-content">
+            <div class="container" style="position: relative;">
+                <div class="row">
+                    <div class="col-lg-6 col-12 d-none d-lg-block">
+                        <div class="hh-left-badge">
+                            <div class="hhlb-icon">
+                                <i class="fas fa-crown"></i>
+                            </div>
+                            <div class="hhlb-text">
+                              Arzon va sifatli xizmatlar
+                            </div>
+                        </div>
+						<h1 class="hl-title">
+                            Uzbekistondagi eng arzon va sifatli nakrutka xizmati!
+                        </h1>
+						<div class="hl-text"><p style="color: #ffffff">
+                        Ijtimoiy tarmoqlardagi obunachilarni, yoqtirishlarni, ko'rishlarni sotib oling, tezkor arzon sifatli!.
+Bizda hamma ijtimoiy tarmoqga xizmatlarimiz mavjud! 
+                 
+                            </p>
+                            
+                        </div>
+						<div class="hl-btns">
+                            <a href="/services" class="btn btn-lg btn-outline">
+                                <i class="fas fa-layer-group mr-2"></i> Xizmatlarni ko'rish
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 offset-lg-1">
+                        <div class="loginSide">
+							<div class="round"></div>
+                            <div class="login-box">
+								  {% if errorText %}
+									<div class="alert alert-dismissible alert-danger">
+									  <button type="button" class="close" data-dismiss="alert">×</button>
+									  {{ errorText }}
+									</div>
+								  {% endif %}
+								  {% if successText %}
+									<div class="alert alert-dismissible alert-success">
+									  <button type="button" class="close" data-dismiss="alert">×</button>
+									  {{ successText }}
+									</div>
+								  {% endif %}
+                                <div class="lgb-title">
+                                    Saytimizga xush kelibsiz!!
+                                </div>
+                                <div class="lgb-text">Kirish uchun login parol kiriting!</div>
+								<form  method="post" action="">
+                                <div class="fc-home">
+                                    <label for="loginUsername"><span class="label-text">{{ lang['signin.username'] }}</span></label>
+                                    <input type="text" id="loginUsername" name="username">
+                                </div>
+                                <div class="fc-home">
+                                    <label for="loginPass"><span class="label-text">{{ lang['signin.password'] }}</span></label>
+                                    <input type="password" id="loginPass" name="password">
+                                </div>
+                                <div class="form-row mt-2">
+                                    <div class="col-6 py-2 mb-2">
+										 <div class="form-check">
+											<input type="checkbox"  name="LoginForm[remember]" value="1" id="remember">
+											<label class="form-check-label" for="remember">Eslab qol</label>
+										 </div>                                  
+                                    </div>
+                                    <div class="col-6 py-2 text-right">
+                                        <a href="/resetpassword" class="frgpass">{{ lang['signin.password.lost'] }}</a>
+                                    </div>
+                                </div>
+								  {% if captcha %}
+									<div class="form-group">
+									  <div class="g-recaptcha" data-sitekey="{{ captchaKey }}"></div>
+									</div>
+								  {% endif %}
+                                <button class="btn btn-secondary btn-lg btn-block mt-3" type="submit">
+                                   Kirish
+                                </button>
+								</form></br>
+								<div class="lgb-text">
+                                   Siz ro'yxatdan o'tmaganmisiz?
+                                </div>
+                                <div class="">
+                                    <a href="/signup" class="btn btn-secondary btn-lg btn-block mt-3">
+                                      <font color="#ffffff"><b>Yangi akkaunt ochish</b></font>
+                                    </a></br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hs-area mb-5">
+        <div class="container">
+            <div class="hs-head">
+				<h1>Eng arzon va sifatli nakrutka xizmatlari!</h1>
+				<small>Biz barcha ijtimoiy tarmoqlarda eng sifatli va hamyonbop xizmatni taklif etamiz..</small>
+			</div>
+            <div class="hs-area-owl owl-carousel owl-theme">
+
+                <div class="hsa-item item">
+                    <div class="row">
+                       
+                        <div class="col align-self-center"><a href="/services" class="hsi-more">
+                             <img src="https://xmax.uz/img/files/3e009fa2f735b7924e4e2b6f3663f7bc.png" alt="Instagram uchun barcha xizmatlar" title="Instagram uchun xizmatlar"/>
+                           </a>
+                        </div>
+                    </div>
+                </div><!-- ./item -->
+
+
+                <div class="hsa-item item">
+                    <div class="row">
+                        
+                        <div class="col align-self-center"><a href="/services" class="hsi-more">
+                            <img src="https://xmax.uz/img/files/afbf2f0865f2c7e1b1cb8ebc4914915c.png" alt="YouTube uchun barcha xizmatlar" title="YouTube uchun xizmatlar"/>
+                            
+                            </a>
+                        </div>
+                    </div>
+                </div><!-- ./item -->
+
+                <div class="hsa-item item">
+                    <div class="row">
+                        
+                        <div class="col align-self-center"><a href="/services" class="hsi-more">
+                            <img src="https://xmax.uz/img/files/86bf882cf0872a8a3990b14f65cc9e22.png" alt="Telegramga juda ko'p xizmatlar va tezkor" title="Telegram uchun xizmatlar"/>
+                            
+                            
+                            </a>
+                        </div>
+                    </div>
+                </div><!-- ./item -->
+
+
+                <div class="hsa-item item">
+                    <div class="row">
+                        
+                        <div class="col align-self-center"><a href="/services" class="hsi-more">
+                            <img src="https://xmax.uz/img/files/66cac2c7f7feff54289968178f77071f.png" alt="Twiter uchun barcha xizmatlar." title="Twitter uchun xizmatlar"/>
+                            
+                            </a>
+                        </div>
+                    </div>
+                </div><!-- ./item -->
+
+                      </div>
+        </div>
+    </div>
+
+
+		<section class="hs-about mt-3 mb-5">
+            <div class="ha-item">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 mr-auto">
+                            <div class="row">
+                                <div class="col-lg-5 ha-heading">
+									<div class="ha-title">
+										<div class="row">
+											<div class="col-md-auto col-12 align-self-center">
+												<div class="ha-title-icon">
+													<i class="fal fa-badge-check"></i>
+												</div>
+											</div>
+											<div class="col-md col-12 align-self-center">
+												<h2>
+													Arzon narx va sifatli xizmatlarimiz!
+												</h2>
+											</div>
+										</div>
+										<div class="ha-text">
+											Biz foydaluvchilarga arzon sifatli ko'plab xizmatlarni taklif etamiz!
+										</div>
+										<a href="/services" class="btn btn-primary mt-4">
+											Xizmatlarimiz
+										</a>										
+										<a href="/signup" class="btn btn-secondary mt-4 ml-2">
+											Tekinga ro'yxatdan o'ting!!
+										</a>
+									</div>
+									
+                                </div>
+                                <div class="col-lg-6 ha-graph">
+                                    <div class="graphics">
+                                        <img src="https://xmax.uz/img/files/156fe56778a42d992693babf11d5bfba.png" class="img-fluid" alt="">
+                                        <span class="shadow"></span>
+                                        <span class="shadow"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+	<section class="home-info">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-6 col-12 align-self-center">
+                  <div class="home-image-2 d-none d-lg-block">
+                     <img src="https://xmax.uz/img/files/156fe56778a42d992693babf11d5bfba.png" class="img-fluid" alt="">
+                  </div>
+               </div>
+               <div class="col-lg-5 offset-lg-1 col-12 mb-lg-0 align-self-center pt-5 pl-2 pr-2">
+                  <div class="hi-title mt-4">
+                     <center>Nimaga aynan {{ site["site_name"] }} ?</center>
+                  </div>
+
+                  <div class="hi-text pt-4 pb-5">
+                     <div class="home-sab-items py-4">
+                        <div class="hosa-item">
+                           <div class="row">
+                              <div class="col-auto align-self-center">
+                                 <div class="hosa-icon">
+                                    <img src="../img/icon1.png">
+                                 </div>
+                              </div>
+                              <div class="col align-self-center">
+                                 <div class="hosa-title">
+                                   Arzon xizmatlarimiz
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="hosa-item">
+                           <div class="row">
+                              <div class="col-auto align-self-center">
+                                 <div class="hosa-icon">
+                                    <img src="../img/icon2.png">
+                                 </div>
+                              </div>
+                              <div class="col align-self-center">
+                                 <div class="hosa-title">
+                                    Tezkor buyurtmani bajarish
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="hosa-item">
+                           <div class="row">
+                              <div class="col-auto align-self-center">
+                                 <div class="hosa-icon">
+                                    <img src="../img/icon3.png">
+                                 </div>
+                              </div>
+                              <div class="col align-self-center">
+                                 <div class="hosa-title">
+                                   Tezkor to'lov tizimi
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="hosa-item">
+                           <div class="row">
+                              <div class="col-auto align-self-center">
+                                 <div class="hosa-icon">
+                                    <img src="../img/icon4.png">
+                                 </div>
+                              </div>
+                              <div class="col align-self-center">
+                                 <div class="hosa-title">
+                                    24/7 Online yordamchi support
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+
+	<section class="footer mt-5">
+            <div class="footer-top">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12 col-12 mt-4 mt-lg-0 align-self-center add-left-border text-lg-center">
+							<div class="ftgu-text">
+								Boshlashga<strong> Tayyormisiz?</strong>
+							</div>
+							<a class="btn btn-outline mt-4" href="/signup">
+								<i class="fas fa-mouse-pointer mr-2"></i>
+							Ro'yxatdan o'tish
+							</a>
+						</div>
+					</div>
+				</div>
+            </div>
+			<div class="container">
+				<div class="footer-content">
+					<div class="footer-content-top">
+						<div class="row">
+							<div class="col-md-auto col-12 text-center text-md-left">
+								<div class="footer-links text-center">
+									<ul>
+										<li>
+											<a href="/terms">Terms</a>
+										</li>
+										<li>
+											<a href="/faq">Tez-tez so'raladigan savollar</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="col-md col-12 mt-lg-0 align-self-center">
+								<div class="footer-content-bot">
+									<div class="footer-content-bot-text">
+										<a href="#">{{ site["site_name"] }}</a> © 2025 Barcha xuquqlar Ximoyanalgan.
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>  
+			</div>
+
+    </section>	
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.2/umd/popper.min.js"></script> 
+	<!-- owl -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script> 
+
+<script>
+
+	if ($('.hs-area-owl').length) {
+		$('.hs-area-owl').owlCarousel({
+				loop:true,
+				margin: 25,
+				nav: false,
+				dots: false,
+				autoplay: 5000,
+				responsive:{
+					0:{
+						items:1
+					},
+					600:{
+						items:2
+					},
+					1000:{
+						items:3
+					}
+				}
+		});    		
+	}
+</script> 
+
+ 
+{% for lang in site['languages'] %}
+  {% if lang['active'] %}
+    <script src="https://www.google.com/recaptcha/api.js?hl={{ lang['code'] }}"></script>
+  {% endif %}
+{% endfor %}
+
+{% include 'footer.twig' %}

@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+Dockerfile
+composer.lock
+vendor/
+node_modules/
+localhost.sql
+*.log
+.DS_Store

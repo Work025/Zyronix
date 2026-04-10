@@ -1,0 +1,238 @@
+{% include 'header.twig' %}
+         <div class="app-content">
+            <!-- page-content -->
+            <div class="container-fluid">
+               <div class="row mt-4">
+                  <div class="col-lg-12">
+                     <section class="order-side">
+                        <div class="row">
+                           <div class="col-lg-6 col-12 mb-5 mb-lg-0">
+                              <div class="d-card dc-dblue">
+                                 <div class="d-card-body" id="dc-body">
+                <form method="post" action="tickets" id="ticketsend">
+                    <div class="form-group">
+                        <label class="ticket-label">{{ lang['tickets.subject'] }}</label>
+                        <div class="select">
+                            <select class="form-control" id="Konu" name="subject" onchange="handleOrderType(this)">
+                                <option value="Order" selected="">Buyurtma</option>
+                                <option value="Payment">To'lov</option>
+                                <option value="Other">Boshqa</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" id="order-grubu">
+                        <label class="mt-3">Buyurtma raqami</label>
+                        <input type="text" class="form-control" id="orderid" placeholder="Bir nechta buyurtmalar uchun (masalan: 100,1001)" />
+                        <label class="mt-3">Muammoingizni bildiring</label>
+                        <div class="select">
+                            <select class="form-control" id="request">
+                                <option value="Buyurtma qilib bulmayapti?">Buyurtma qilib bulmayapti?</option>
+                          <option value="Buyurtmam bekor qilindi?">Buyurtmam bekor qilindi?</option>
+                          <option value="Buyurtmam amalga oshmadi?">Buyurtmam amalga oshmadi?</option>
+                          <option value="Nega mening buyurtmam bekor qilindi?">Nega mening buyurtmam bekor qilindi?</option>
+                          <option value="Boshqa">Boshqa</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" id="payment-grubu" style="display: none;">
+                       <label class="mt-3">Muammoingizni bildiring</label>
+                      <div class="select">
+                        <select class="form-control" id="payment">
+                          <option value="Hisobimni to'ldirishda xatolik bulyapti?" selected="">Hisobimni to'ldirishda xatolik bulyapti?</option>
+                          <option value="Mening hisobimga pul tushmayapti">Mening hisobimga pul tushmayapti</option>
+                          <option value="Men Hisobimni to'ldira olmayapman!">Men Hisobimni to'ldira olmayapman!</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="mt-3">{{ lang['tickets.message'] }}<span id="diger-grubu"></span></label>
+                        <textarea name="message" class="form-control mb-3" rows="4" cols="50" id="mesaj" placeholder="Sizga yordam berishimiz uchun tavsifingizni iloji boricha batafsilroq qiling."></textarea>
+                      	<input type="hidden" id="tmessage" name="message">
+                    </div>
+                    <div class="form-group">
+                      <div id="alertArea" class="flash flash-hata mb-3" role="alert" style=""></div>
+                      <div id="successArea" class="flash flash-basarili mb-3" role="alert" style="">Sizga yordam berishimiz uchun tavsifingizni iloji boricha batafsilroq qiling.</div>
+                        <button id="send-ticket" type="button" class="btn btn-primary btn-block btn-lg">{{ lang['tickets.button'] }}</button>
+                    </div>
+                </form>
+                                 </div>
+                              </div>
+                              <!-- d-card end -->
+                           </div>
+                           <!-- col item end-->
+                           <div class="col-lg-6 col-12 mb-5 mb-lg-0">
+                              <div class="d-card dc-dblue">
+                                 <ul class="nav nav-pills fastside">
+                                    <li class="nav-item col-6 mb-2" style="padding:0">
+                                       <a class="nav-link active" data-toggle="pill" href="#oldTickets" role="tab" aria-controls="pills-oldTickets" aria-selected="true">Oldingi so'rovlarim</a>
+                                    </li>
+                                    <li class="nav-item col-6 mb-2" style="padding:0">
+                                       <a class="nav-link second" data-toggle="pill" href="#sssTab" role="tab" aria-controls="pills-sssTab" aria-selected="false">Savollar</a>
+                                    </li>
+                                 </ul>
+                                 <div class="d-card-body" id="dc2-body" style="overflow-y: auto;max-height: 500px">
+                                    <div class="tab-content mt-3">
+                                       <div class="tab-pane fade active show" id="oldTickets" role="tabpanel" aria-labelledby="oldTickets">
+											<div class="table-responsive">
+											{% if ticketList %}
+												<table class="table">
+												  <thead>
+													<tr>
+													  <th>{{ lang['tickets.id'] }}</th>
+													  <th>{{ lang['tickets.subject'] }}</th>
+													  <th>{{ lang['tickets.status'] }}</th>
+													  <th>{{ lang['tickets.updated'] }}</th>
+													</tr>
+												  </thead>
+													<tbody>
+													{% for ticket in ticketList %}
+														<tr>
+															<td>{{ ticket['ticket_id'] }}</td>
+															  {% if ticket["support_new"] == 2 %}
+																<td><a href="tickets/{{ ticket['ticket_id'] }}"><strong>{{ ticket['subject'] }}</strong></a></td>
+															  {% else %}
+																<td><a href="tickets/{{ ticket['ticket_id'] }}">{{ ticket['subject'] }}</a></td>
+															  {% endif %}
+															<td>
+															{% if ticket['status'] == 'answered' %}
+															<span style="color: #fff;background-color: #28a745;cursor:text;border-radius:5px; padding: 2px 5px;font-size: 12px">Javob berildi.</span>
+															{% endif %}               
+															{% if ticket['status'] == 'Pending' %}
+															<span style="color: #fff;background-color: #ffcc29;cursor:text;border-radius:5px; padding: 2px 5px;font-size: 12px">Kutilmoqda</span>
+															{% endif %}
+															{% if ticket['status'] == 'Closed' %}
+															<span style="color: #fff;background-color: #ec4646;cursor:text;border-radius:5px; padding: 2px 5px;font-size: 12px">Yopiq</span>
+															{% endif %}
+															</td>
+														  <td><span class="nowrap">{{ ticket['lastupdate_time'] }}</span></td>
+														</tr>
+													{% endfor %}	
+													</tbody>
+												</table>
+												{% endif %}
+											</div>
+										</div>
+
+                                       <div class="tab-pane fade" id="sssTab" role="tabpanel" aria-labelledby="sssTab-tab">
+										<div class="faq-ss-tabs">
+										 <div class="home-ss-tab">
+											<div class="ss-tab-head">
+											   <div class="row">
+												  <div class="col">
+													 Nakrutka nima degani?
+												  </div>
+												  <div class="col-auto align-self-center right-p">
+													 <i class="fas fa-plus"></i>
+													 <i class="fas fa-minus"></i>
+												  </div>
+											   </div>
+											</div>
+											<div class="ss-tab-content">
+											   Nakrutka degani yolg'on prasmotr like obunachi qo'shish deganni anglatadi, bizning panelimiz tilimizga moslashtirilgan. Virtualizatsiya; ijtimoiy media akkauntlari ma'lum bir auditoriyaga ega degan farazni anglatadi. Assumption (Virtualizatsiya) sifatida ko'rsatilgan profillarni vizual idrok etish muammosini hisobga olgan holda, ijtimoiy media akkauntlari o'zlari erishmoqchi bo'lgan maqsadlarga osonroq erisha olishlari bizning ilovalarimiz tomonidan har kuni isbotlangan.
+											</div>
+										 </div>
+										 <!-- home-ss-tab end -->
+										 <div class="home-ss-tab">
+											<div class="ss-tab-head">
+											   <div class="row">
+												  <div class="col">
+													Mening hisobim xavf ostidami?
+												  </div>
+												  <div class="col-auto align-self-center right-p">
+													 <i class="fas fa-plus"></i>
+													 <i class="fas fa-minus"></i>
+												  </div>
+											   </div>
+											</div>
+											<div class="ss-tab-content">
+											   Biz panelimiz orqali berilgan buyurtmalarning ijtimoiy tarmoqlardagi akkauntlarga ta'sirini lahzada yozib boramiz va kuzatamiz. Bizning panelimiz amalda qo'llanilgandan beri, agar foydalanuvchilarimiz tomonidan suiiste'mol qilinmasa, hisoblarda hech qanday xavf-xatar kuzatmaganimizni bilishingizni istaymiz. Biroq, bizning panelimiz yuzaga kelishi mumkin bo'lgan muammolar uchun hech qanday javobgarlikni o'z zimmasiga olmasligini bilishingizni istardik.
+											</div>
+										 </div>
+										 <!-- home-ss-tab end -->
+										 <div class="home-ss-tab">
+											<div class="ss-tab-head">
+											   <div class="row">
+												  <div class="col">
+													 Mening hisobimga qanday ta'sir qiladi?
+												  </div>
+												  <div class="col-auto align-self-center right-p">
+													 <i class="fas fa-plus"></i>
+													 <i class="fas fa-minus"></i>
+												  </div>
+											   </div>
+											</div>
+											<div class="ss-tab-content">
+											    Panelimiz orqali beriladigan buyurtmalardagi borishni nazorat ostida va muntazam ravishda kuzatib borsangiz, samarani ko'rishingizga ishonchingiz komil bo'lishi mumkin. Agar biz bir necha misollar bilan tushuntirishimiz kerak bo'lsa; Instagram’da baham ko‘rgan postlaringiz “Discover” bo‘limiga o‘tadi. Bu sizning postingiz Instagram foydalanuvchilariga ko'proq kirishiga imkon beradi. Yana bir misol uchun, siz Youtube-da baham ko'rgan videolaringizning "Tavsiya etilgan" bo'limida ko'rinishingiz ehtimoli ko'proq. Bu sizning video postingizni ko'proq Youtube foydalanuvchilari ko'rishiga yordam beradi.
+											</div>
+										 </div>
+										 <!-- home-ss-tab end -->
+										 <div class="home-ss-tab">
+											<div class="ss-tab-head">
+											   <div class="row">
+												  <div class="col">
+													 Qo'llab-quvvatlash so'rovini qanday yaratish kerak?
+												  </div>
+												  <div class="col-auto align-self-center right-p">
+													 <i class="fas fa-plus"></i>
+													 <i class="fas fa-minus"></i>
+												  </div>
+											   </div>
+											</div>
+											<div class="ss-tab-content">
+											   Agar siz ish stoli kompyuteringiz bilan kirayotgan bo'lsangiz, chap tarafdagi menyudan "Yordam markazi" belgisini bosing, agar siz mobil kompyuter bilan tizimga kirsangiz, yuqori o'ngdagi menyu tugmasini bosing, so'ng tugmani bosing. "Yordam markazi" deb yozilgan. Ochilgan sahifada qo'llab-quvvatlash so'rovini yaratmoqchi bo'lgan mavzuni tanlang. Keyin kerakli maydonlarni to'ldiring va "Yordam so'rovini yaratish" tugmasini bosing.
+											</div>
+										 </div>
+										 <!-- home-ss-tab end -->
+										 <div class="home-ss-tab">
+											<div class="ss-tab-head">
+											   <div class="row">
+												  <div class="col">
+													Qanday Xisobni to'ldirish?
+												  </div>
+												  <div class="col-auto align-self-center right-p">
+													 <i class="fas fa-plus"></i>
+													 <i class="fas fa-minus"></i>
+												  </div>
+											   </div>
+											</div>
+											<div class="ss-tab-content">
+											   Panelimiz orqali ro‘yxatdan o‘tish jarayonini muvaffaqiyatli yakunlaganingizdan so‘ng, agar siz ish stoli kompyuteringiz bilan tizimga kirayotgan bo‘lsangiz, chap menyudan “Balans qo‘shish” belgisini bosing, agar siz mobil telefon orqali tizimga kirayotgan bo‘lsangiz, yuqori o‘ng tarafdagi menyu tugmasini bosing, keyin "Balans qo'shish" degan tugmani bosing. Ushbu sahifadan siz qiwi bilan 24/7 komissiyasiz to'lashingiz mumkin. Sizning kartangiz ma'lumotlari hech qanday tarzda bizning panelimiz infratuzilmasiga kirmaydi. qiwi orqali amalga oshirgan toʻlovlaringiz xavfsizlik tizimi tomonidan himoyalangan.
+											</div>
+										 </div>
+										 <!-- home-ss-tab end -->
+										 <div class="home-ss-tab">
+											<div class="ss-tab-head">
+											   <div class="row">
+												  <div class="col">
+													 Qanday qilib buyurtma berishim mumkin?
+												  </div>
+												  <div class="col-auto align-self-center right-p">
+													 <i class="fas fa-plus"></i>
+													 <i class="fas fa-minus"></i>
+												  </div>
+											   </div>
+											</div>
+											<div class="ss-tab-content">
+											  Agar siz ish stoli kompyuterida tizimga kirayotgan bo'lsangiz, chap tarafdagi menyudan "Buyurtma" belgisini bosing, agar siz mobil kompyuter bilan kirayotgan bo'lsangiz, yuqori o'ng tarafdagi menyu tugmasini bosing, so'ngra "Buyurtma" tugmasini bosing. "Yangi tartib". Bizning panelga tegishli barcha xizmatlarni ochilgan sahifaning "Kategoriyalar" bo'limida topishingiz mumkin. Ushbu menyudan buyurtma bermoqchi bo'lgan toifani tanlang. Keyin "Xizmat" menyusidan buyurtma bermoqchi bo'lgan xizmatni tanlang. Siz tanlagan xizmatda yozilgan narx 1000 dona narxi. "Xizmat tavsifi" bo'limini batafsil o'qib chiqqaningizga ishonch hosil qilganingizdan so'ng, tavsifda ko'rsatilgan havola turini "Link" deb yozing. Keyin maksimal yoki minimal qiymatlar orasidagi miqdorni yozing. miqdori bo'limida o'sha xizmatdan berishingiz mumkin. Ushbu operatsiyalarni bajarganingizdan so'ng, "Buyurtma berish" tugmasini bosing. Buyurtmangiz tavsif bo'limida ko'rsatilgan vaqt ichida amalga oshiriladi.
+											</div>
+										 </div>
+										 <!-- home-ss-tab end -->
+									  </div>
+                                       </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </section>
+                  </div>
+                  <!-- page-content end -->
+               </div>
+               <!-- app-content -->
+            </div>
+         </div>
+
+      </div>
+
+{% include 'footer.twig' %}
