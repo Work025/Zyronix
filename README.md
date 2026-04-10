@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Zʏʀᴏɴɪx Kino Bot
 
 Bu Telegram bot kino ma'lumotlarini taqdim etadi.
@@ -25,3 +26,6 @@ Bot Telegramda ishlaydi.
 
 - /start - Salomlashish
 - /movie <kino nomi> - Kino haqida ma'lumot
+=======
+# Zyronix
+>>>>>>> fe3980bb653bb273968cc4521456eca640d88197
