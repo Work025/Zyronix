@@ -4,6 +4,8 @@ import requests
 import os
 import random
 import asyncio
+import threading
+from flask import Flask
 from datetime import datetime, timedelta
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import (
@@ -16,6 +18,17 @@ from telegram.ext import (
 )
 from bson import ObjectId
 from quiz_data import QUIZ_DATA
+
+# --- WEB SERVER (KEEP-ALIVE) ---
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Bot is running 24/7!"
+
+def run_flask():
+    port = int(os.environ.get("PORT", 8080))
+    app.run(host="0.0.0.0", port=port)
 
 # --- CONFIGURATION ---
 TOKEN = os.environ.get('TOKEN')
@@ -259,6 +272,9 @@ async def add_promo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     except: await update.message.reply_text("⚠️ /add_promo <code> <amt> <max>")
 
 if __name__ == '__main__':
+    # Start web server for 24/7 (Render health check)
+    threading.Thread(target=run_flask, daemon=True).start()
+    
     app = ApplicationBuilder().token(TOKEN).build()
     app.add_handler(CommandHandler("start", start)); app.add_handler(CommandHandler("admin", admin_panel)); app.add_handler(CommandHandler("broadcast", broadcast))
     app.add_handler(CommandHandler("set_maintenance", maintenance_cmd)); app.add_handler(CommandHandler("add_promo", add_promo)); app.add_handler(CommandHandler("add_task", add_task))
